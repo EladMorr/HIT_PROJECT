@@ -1,4 +1,4 @@
-package com.example.firebase;
+package com.example.firebase.ui.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -9,6 +9,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.firebase.R;
+import com.example.firebase.model.User;
+import com.example.firebase.manager.UsersManager;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -24,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         m_fullName = findViewById(R.id.fullName);
         m_Email = findViewById(R.id.email);
         m_phoneNumber = findViewById(R.id.phoneNumber);
@@ -45,9 +49,6 @@ public class MainActivity extends AppCompatActivity {
                 else{
                     rootNode = FirebaseDatabase.getInstance();
                     reference = rootNode.getReference().child("users").child(m_phoneNumber.getText().toString());
-
-                    User user = new User(fullName, Email,phoneNumber, password);
-                    reference.setValue(user);
                     Toast.makeText(getApplicationContext() , "User created.", Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(getApplicationContext(), LoginActivity.class));
                 }

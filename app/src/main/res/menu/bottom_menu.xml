@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:title="Home"
+        android:icon="@drawable/ic_baseline_home_24"
+        android:id="@+id/home"/>
+    <item
+        android:title="Personal"
+        android:icon="@drawable/ic_person"
+        android:id="@+id/personalPage" />
+    <item
+        android:title="Settings"
+        android:icon="@drawable/ic_baseline_settings_24"
+        android:id="@+id/settings"/>
+    <item
+        android:title="Manager"
+        android:icon="@drawable/ic_supervisor_account"
+        android:id="@+id/managerFragment3"/>
+</menu>
