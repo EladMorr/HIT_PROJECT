@@ -14,10 +14,11 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class UsersManager {
 
-    private FirebaseAuth mAuth;
+
     private static UsersManager sINSTANCE;
-    private User mCurrentUser;
+    private FirebaseAuth mAuth;
     private String TAG = getClass().getSimpleName();
+    private User mCurrentUser;
 
     private UsersManager() {
     }
@@ -35,8 +36,9 @@ public class UsersManager {
 
     public void login(String email, String password, IUserLoginCallback callback) {
         mAuth = FirebaseAuth.getInstance();
-        FirebaseUser fbUser = mAuth.getCurrentUser();
+        FirebaseUser fbUser = null;
         if (fbUser == null) {
+            fbUser = mAuth.getCurrentUser();
             mAuth.signInWithEmailAndPassword(email, password)
                     .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                         @Override
@@ -46,7 +48,7 @@ public class UsersManager {
                                 Log.d(TAG, "signInWithEmail:success");
                                 FirebaseUser user = mAuth.getCurrentUser();
 
-                                RolesManager.getInstance().getUserRoleType(user.getEmail(), new RolesManager.IOnRoleResult() {
+                                DatabaseManager.getInstance().getUserRoleType(user.getEmail(), new RolesManager.IOnRoleResult() {
                                     @Override
                                     public void role(RolesManager.RoleType type) {
                                         mCurrentUser = new User(user, type);
@@ -64,4 +66,5 @@ public class UsersManager {
             callback.onLoginSuccess();
         }
     }
+
 }
