@@ -3,6 +3,13 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/8lab305/AndroidStudioProjects/HIT_PROJECT/app/src/main/res/layout/activity_home.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/8lab305/AndroidStudioProjects/HIT_PROJECT/app/src/main/res/layout/activity_login.xml" value="0.14444444444444443" />
+        <entry key="..\:/Users/8lab305/AndroidStudioProjects/HIT_PROJECT/app/src/main/res/layout/activity_manager_page.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/8lab305/AndroidStudioProjects/HIT_PROJECT/app/src/main/res/layout/fragment_manager.xml" value="0.25" />
+        <entry key="..\:/Users/8lab305/AndroidStudioProjects/HIT_PROJECT/app/src/main/res/layout/fragment_personal_page.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/8lab305/AndroidStudioProjects/HIT_PROJECT/app/src/main/res/menu/bottom_menu.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/8lab305/AndroidStudioProjects/HIT_PROJECT/app/src/main/res/menu/manager_bottom_menu.xml" value="0.36666666666666664" />
         <entry key="..\:/dev/tests/HIT_PROJECT/app/src/main/res/layout/activity_home.xml" value="0.1" />
         <entry key="..\:/dev/tests/HIT_PROJECT/app/src/main/res/layout/activity_login.xml" value="0.18" />
         <entry key="..\:/dev/tests/HIT_PROJECT/app/src/main/res/layout/activity_main.xml" value="0.23020833333333332" />
@@ -14,7 +21,7 @@
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">

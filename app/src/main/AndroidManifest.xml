@@ -9,27 +9,29 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Firebase">
-
+        <activity
+            android:name=".ui.activity.ManagerPage"
+            android:exported="true" />
         <activity
             android:name=".ui.activity.HomeActivity"
             android:exported="true">
-            <!--            <intent-filter>-->
-            <!--                <action android:name="android.intent.action.MAIN" />-->
-            <!--                <category android:name="android.intent.category.LAUNCHER" />-->
-            <!--            </intent-filter>-->
+
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
         </activity>
         <activity
             android:name=".ui.activity.LoginActivity"
             android:windowSoftInputMode="adjustPan" />
-
-
         <activity
             android:name=".ui.activity.MainActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:exported="true"
-            android:windowSoftInputMode="stateHidden|adjustPan|adjustNothing"
-            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation">
+            android:windowSoftInputMode="stateHidden|adjustPan|adjustNothing">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
