@@ -12,6 +12,7 @@ import android.widget.Toast;
 import com.example.firebase.R;
 import com.example.firebase.model.User;
 import com.example.firebase.manager.UsersManager;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -20,8 +21,7 @@ public class MainActivity extends AppCompatActivity {
     EditText m_fullName, m_Email, m_phoneNumber, m_password;
     Button b_sendToFirebase, b_haveAccount;
 
-    FirebaseDatabase rootNode;
-    DatabaseReference reference;
+    FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,8 +47,8 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(MainActivity.this, "please fill all information above", Toast.LENGTH_SHORT).show();
                 }
                 else{
-                    rootNode = FirebaseDatabase.getInstance();
-                    reference = rootNode.getReference().child("users").child(m_phoneNumber.getText().toString());
+                    mAuth = FirebaseAuth.getInstance();
+                    mAuth.createUserWithEmailAndPassword(Email,password);
                     Toast.makeText(getApplicationContext() , "User created.", Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(getApplicationContext(), LoginActivity.class));
                 }

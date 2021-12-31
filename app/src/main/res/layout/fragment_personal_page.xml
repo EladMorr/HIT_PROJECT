@@ -1,56 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".ui.fragment.PersonalFragment">
+    android:layout_height="match_parent">
 
-    <androidx.appcompat.widget.Toolbar
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/blue">
-
-        <Button
-            android:id="@+id/resetBTN"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@null"
-            android:text="RESET"
-            android:textColor="@color/red"
-            android:textSize="30sp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="TIMER"
-            android:textColor="@color/black"
-            android:layout_gravity="center"
-            android:textSize="30sp"/>
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="START"
-            android:id="@+id/startStopBTN"
-            android:background="@null"
-            android:textColor="@color/green"
-            android:textSize="30sp"
-            android:layout_gravity="end"
-            android:layout_marginRight="15dp" />
-
-    </androidx.appcompat.widget.Toolbar>
+    <ImageButton
+        android:id="@+id/circleBTN"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="160dp"
+        android:adjustViewBounds="true"
+        android:background="@drawable/exist_user"
+        android:contentDescription="@string/todo"
+        android:scaleType="centerInside"
+        android:src="@drawable/favpng_circle_icon"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="MissingConstraints" />
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/timerText"
-        android:textSize="60sp"
-        android:text="00 : 00 : 00"
-        android:textColor="@color/black"
-        android:layout_gravity="center"
+        android:id="@+id/timerTXT"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:gravity="center"
-        android:layout_marginTop="40dp"/>
+        android:text="Start"
+        android:textSize="70sp"
+        app:layout_constraintBottom_toBottomOf="@+id/circleBTN"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/circleBTN"
+        app:layout_constraintTop_toTopOf="@+id/circleBTN"
+        app:layout_constraintVertical_bias="0.0"
+        tools:ignore="MissingConstraints" />
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
