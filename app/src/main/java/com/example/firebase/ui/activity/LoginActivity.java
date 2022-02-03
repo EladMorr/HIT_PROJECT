@@ -44,7 +44,7 @@ public class LoginActivity extends AppCompatActivity {
                     UsersManager.getInstance().login(Email, password, new IUserLoginCallback() {
                         @Override
                         public void onLoginSuccess() {
-                            mLoadingBar = new ProgressDialog(getApplicationContext());
+                            //mLoadingBar = new ProgressDialog(getApplicationContext());
                             Toast.makeText(LoginActivity.this, "Successfully logged in.", Toast.LENGTH_SHORT).show();
                             startActivity(new Intent(getApplicationContext(), HomeActivity.class));
                         }

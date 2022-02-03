@@ -17,10 +17,12 @@ public class UsersManager {
 
     private static UsersManager sINSTANCE;
     private FirebaseAuth mAuth;
-    private String TAG = getClass().getSimpleName();
+    private final String TAG = getClass().getSimpleName();
     private User mCurrentUser;
 
+
     private UsersManager() {
+
     }
 
     public static UsersManager getInstance() {
@@ -36,34 +38,28 @@ public class UsersManager {
 
     public void login(String email, String password, IUserLoginCallback callback) {
         mAuth = FirebaseAuth.getInstance();
-        FirebaseUser fbUser = null;
-        if (fbUser == null) {
-            fbUser = mAuth.getCurrentUser();
-            mAuth.signInWithEmailAndPassword(email, password)
-                    .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            if (task.isSuccessful()) {
-                                // Sign in success, update UI with the signed-in user's information
-                                Log.d(TAG, "signInWithEmail:success");
-                                FirebaseUser user = mAuth.getCurrentUser();
-                                DatabaseManager.getInstance().getUserRoleType(user.getEmail(), new RolesManager.IOnRoleResult() {
-                                    @Override
-                                    public void role(RolesManager.RoleType type) {
-                                        mCurrentUser = new User(user, type);
-                                        callback.onLoginSuccess();
-                                    }
-                                });
-                            } else {
-                                // If sign in fails, display a message to the user.
-                                Log.w(TAG, "signInWithEmail:failure", task.getException());
-                                callback.onLoginFail();
-                            }
+        mAuth.signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            // Sign in success, update UI with the signed-in user's information
+                            Log.d(TAG, "signInWithEmail:success");
+                            FirebaseUser user = mAuth.getCurrentUser();
+                            mCurrentUser = new User(user, RolesManager.RoleType.Manager);
+                            callback.onLoginSuccess();
+//                            DatabaseManager.getInstance().getUserRoleType(user.getEmail(), new RolesManager.IOnRoleResult() {
+//                                @Override
+//                                public void role(RolesManager.RoleType type) {
+//                                }
+//                            });
+                        } else {
+                            // If sign in fails, display a message to the user.
+                            Log.w(TAG, "signInWithEmail:failure", task.getException());
+                            callback.onLoginFail();
                         }
-                    });
-        } else {
-            callback.onLoginSuccess();
-        }
+                    }
+                });
     }
 
 }

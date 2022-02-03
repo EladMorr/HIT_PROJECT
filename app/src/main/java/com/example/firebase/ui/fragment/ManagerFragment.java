@@ -71,7 +71,7 @@ public class ManagerFragment extends Fragment {
                                 UsersManager.getInstance().login(EmailFromDB, passwordInput, new IUserLoginCallback() {
                                     @Override
                                     public void onLoginSuccess() {
-                                        mLoadingBar = new ProgressDialog(getActivity());
+//                                        mLoadingBar = new ProgressDialog(getActivity());
                                         Toast.makeText(getActivity(), "Welcome to manager page" , Toast.LENGTH_SHORT).show();
                                         startActivity(new Intent(getActivity(),ManagerPage.class));
                                     }

@@ -70,7 +70,7 @@ public class DatabaseManager {
 
     public RolesManager.RoleType getUserRoleType(String mail, RolesManager.IOnRoleResult result) {
         DatabaseReference reference = FirebaseDatabase.getInstance().getReferenceFromUrl("https://fir-b115e-default-rtdb.firebaseio.com/");
-        reference.child("roles").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+        reference.child("role").child("manager").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
                 if (task.isSuccessful()) {
