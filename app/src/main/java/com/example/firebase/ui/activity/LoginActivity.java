@@ -1,25 +1,30 @@
 package com.example.firebase.ui.activity;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
-
-import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.firebase.R;
 import com.example.firebase.interfaces.IUserLoginCallback;
 import com.example.firebase.manager.DatabaseManager;
+import com.example.firebase.manager.RolesManager;
 import com.example.firebase.manager.UsersManager;
+import com.example.firebase.model.User;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class LoginActivity extends AppCompatActivity {
 
     EditText mMailInput, mPasswordInput;
+    TextView mErrorMessage;
     Button mLoginBtn;
-    private ProgressDialog mLoadingBar;
+    private ProgressBar mLoadingBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,29 +34,57 @@ public class LoginActivity extends AppCompatActivity {
         mMailInput = findViewById(R.id.login_mail);
         mPasswordInput = findViewById(R.id.login_password);
         mLoginBtn = findViewById(R.id.login_connectBTN);
+        mErrorMessage = findViewById(R.id.errorMessage);
+        mLoadingBar = findViewById(R.id.loginProgressBar);
 
         mLoginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String Email = mMailInput.getText().toString();
+                String mail = mMailInput.getText().toString();
                 String password = mPasswordInput.getText().toString();
-
-                if (Email.isEmpty()) {
-                    Toast.makeText(LoginActivity.this, "please fill your Email.", Toast.LENGTH_SHORT).show();
-                } else if (password.isEmpty()) {
-                    Toast.makeText(LoginActivity.this, "please fill your password.", Toast.LENGTH_SHORT).show();
+                if (TextUtils.isEmpty(mail)) {
+                    mMailInput.setError("please fill your Email");
+                    mMailInput.requestFocus();
+                } else if (TextUtils.isEmpty(password)) {
+                    mPasswordInput.setError("please fill your Password");
+                    mPasswordInput.requestFocus();
                 } else {
-                    UsersManager.getInstance().login(Email, password, new IUserLoginCallback() {
+                    mErrorMessage.setVisibility(View.GONE);
+                    mLoadingBar.setVisibility(View.VISIBLE);
+                    mLoginBtn.setEnabled(false);
+                    mMailInput.setError(null);
+                    mPasswordInput.setError(null);
+                    UsersManager.getInstance().login(mail, password, new IUserLoginCallback() {
                         @Override
                         public void onLoginSuccess() {
-                            //mLoadingBar = new ProgressDialog(getApplicationContext());
-                            Toast.makeText(LoginActivity.this, "Successfully logged in.", Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(getApplicationContext(), HomeActivity.class));
+                            User fbUser = UsersManager.getInstance().getCurrentUser();
+                            if (fbUser != null) {
+                                DatabaseManager.getInstance().getUserRoleType(fbUser.getEmail(), new RolesManager.IOnRoleResult() {
+                                    @Override
+                                    public void role(RolesManager.RoleType type) {
+                                        fbUser.setRoleType(type);
+                                        Toast.makeText(LoginActivity.this, "Successfully logged in.", Toast.LENGTH_SHORT).show();
+                                        startActivity(new Intent(getApplicationContext(), HomeActivity.class));
+                                        finish();
+                                    }
+
+                                    @Override
+                                    public void fail() {
+                                        mLoadingBar.setVisibility(View.GONE);
+                                        mLoginBtn.setEnabled(true);
+                                        mErrorMessage.setVisibility(View.VISIBLE);
+                                        mErrorMessage.setText("Something went wrong. please try again");
+                                    }
+                                });
+                            }
                         }
 
                         @Override
                         public void onLoginFail() {
-                            Toast.makeText(LoginActivity.this, "login Failed.", Toast.LENGTH_SHORT).show();
+                            mLoadingBar.setVisibility(View.GONE);
+                            mLoginBtn.setEnabled(true);
+                            mErrorMessage.setVisibility(View.VISIBLE);
+                            mErrorMessage.setText("Login failed. Mail or password don't match");
                         }
                     });
                 }

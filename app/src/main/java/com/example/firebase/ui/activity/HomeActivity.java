@@ -16,8 +16,6 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class HomeActivity extends AppCompatActivity {
 
-    DatabaseReference reference = FirebaseDatabase.getInstance().getReferenceFromUrl("https://fir-b115e-default-rtdb.firebaseio.com//");
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,31 +45,5 @@ public class HomeActivity extends AppCompatActivity {
                         return true;
                     }
                 });
-
-//        b_deleteAccount.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//
-//                String phoneNumber = UsersManager.getInstance().getCurrentUser().getPhoneNumber();
-//                reference.child("users").addListenerForSingleValueEvent(new ValueEventListener() {
-//                    @Override
-//                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                        if(snapshot.hasChild(phoneNumber)){
-//                            User user = snapshot.child(phoneNumber).getValue(User.class);
-//                            if(user.getPhoneNumber().equals(phoneNumber)){
-//                                reference.child("users").child(phoneNumber).removeValue();
-//                            }
-//                        }
-//                    }
-//
-//                    @Override
-//                    public void onCancelled(@NonNull DatabaseError error) {
-//
-//                    }
-//                });
-//
-//               // AlertDialog.Builder builder = new AlertDialog.Builder(holder)
-//            }
-//        });
     }
 }

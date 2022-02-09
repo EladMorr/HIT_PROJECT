@@ -8,13 +8,23 @@ import java.util.Map;
 public class User {
 
     private FirebaseUser mFbUser;
+    private String mPassword;
+    private final String mMail;
     private String mPhoneNumber;
     private Map<String, Integer> mPost;
-    RolesManager.RoleType mRoleType;
+    RolesManager.RoleType mRoleType = RolesManager.RoleType.Employee;
 
-    public User(FirebaseUser fbUser, RolesManager.RoleType roleType) {
-        mRoleType = roleType;
+    public User(FirebaseUser fbUser) {
         mFbUser = fbUser;
+        mMail = fbUser.getEmail();
+    }
+
+    public RolesManager.RoleType getRoleType() {
+        return mRoleType;
+    }
+
+    public void setRoleType(RolesManager.RoleType roleType) {
+        this.mRoleType = roleType;
     }
 
     public String getFullName() {
@@ -22,13 +32,23 @@ public class User {
     }
 
     public String getEmail() {
-        return mFbUser.getEmail();
+        return mMail;
     }
 
     public String getPhoneNumber() {
         return mFbUser.getPhoneNumber();
     }
 
+    public void setPassword(String password) {
+        this.mPassword = password;
+    }
 
+    public String getPassword() {
+        return mPassword;
+    }
+
+    public boolean isUserManager() {
+        return mRoleType == RolesManager.RoleType.Manager;
+    }
 
 }

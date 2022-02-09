@@ -24,6 +24,7 @@ public class RolesManager {
 
     public interface IOnRoleResult {
         void role(RoleType type);
+        void fail();
     }
 
     private RolesManager() {
