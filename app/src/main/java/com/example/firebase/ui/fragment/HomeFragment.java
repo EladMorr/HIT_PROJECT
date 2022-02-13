@@ -15,12 +15,14 @@ import com.example.firebase.manager.UsersManager;
 import com.example.firebase.model.User;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
 
 public class HomeFragment extends Fragment {
 
     private LinearLayout mPostsContainer;
     private TextView mHelloUser;
     private User mUser;
+    private RecyclerView mPostsRecyclerView;
     private ProgressBar mProgressBar;
 
     @Override
@@ -29,18 +31,18 @@ public class HomeFragment extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_home_page, container, false);
         mHelloUser = v.findViewById(R.id.helloUser);
-        mPostsContainer = v.findViewById(R.id.postsContainer);
+        mPostsRecyclerView = v.findViewById(R.id.homeFragmentPostsRecyclerView);
         mUser = UsersManager.getInstance().getCurrentUser();
         mProgressBar = v.findViewById(R.id.postsLoadingProgressBar);
 
-        mHelloUser.setText("Hi\n"+mUser.getFullName());
+        mHelloUser.setText(mUser.getFullName());
 
         DatabaseManager.getInstance().getPostsByRole(mUser.getRoleType(), new IPostCallback() {
             @Override
             public void onPostsLoaded(String posts) {
                 TextView post = new TextView(getActivity());
                 post.setText(posts);
-                mPostsContainer.addView(post);
+//                mPostsContainer.addView(post);
                 mProgressBar.setVisibility(View.GONE);
             }
         });

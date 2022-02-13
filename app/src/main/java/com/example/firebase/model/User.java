@@ -8,15 +8,16 @@ import java.util.Map;
 public class User {
 
     private FirebaseUser mFbUser;
+    private String mId;
     private String mPassword;
     private final String mMail;
     private String mPhoneNumber;
-    private Map<String, Integer> mPost;
     RolesManager.RoleType mRoleType = RolesManager.RoleType.Employee;
 
     public User(FirebaseUser fbUser) {
         mFbUser = fbUser;
         mMail = fbUser.getEmail();
+        mId = fbUser.getUid();
     }
 
     public RolesManager.RoleType getRoleType() {

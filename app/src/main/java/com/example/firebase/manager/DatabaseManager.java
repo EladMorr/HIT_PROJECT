@@ -32,7 +32,11 @@ public class DatabaseManager {
         mPostRef = database.child("posts");
         mRoles = database.child("role");
 //        mUserRef = database.child("users");
-        mShiftRef = database.child("shift");
+        mShiftRef = database.child("shifts");
+    }
+
+    public DatabaseReference getShiftsDatabaseRef(){
+        return mShiftRef;
     }
 
     public void addShift(Shift shift) {

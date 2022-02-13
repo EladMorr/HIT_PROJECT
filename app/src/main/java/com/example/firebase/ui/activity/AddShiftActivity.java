@@ -16,6 +16,9 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 
 import com.example.firebase.R;
+import com.example.firebase.manager.ShiftsManager;
+import com.example.firebase.manager.UsersManager;
+import com.example.firebase.model.Shift;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -26,14 +29,14 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class AddShiftActivity extends AppCompatActivity {
 
-    private TextView mSelectedDate;
+    private TextView mSelectedDateTextVIew;
     private View mChooseDateExpandBtn;
 
     private Button mAddShiftBtn;
 
     private View mChooseTimeExpandBtn;
-    private TextView mSelectedStartTime;
-    private TextView mSelectedEndTime;
+    private TextView mSelectedStartTimeTextView;
+    private TextView mSelectedEndTimeTextView;
     private LinearLayout mStartTimeBtn;
     private LinearLayout mEndTimeBtn;
 
@@ -44,16 +47,19 @@ public class AddShiftActivity extends AppCompatActivity {
 
     private boolean mStartTimeSet = true;
 
+    private long mSelectedStartTime;
+    private long mSelectedEndTime;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_shift);
 
         mAddShiftBtn = findViewById(R.id.addShiftBtn);
-        mSelectedDate = findViewById(R.id.addShiftSelectedDate);
+        mSelectedDateTextVIew = findViewById(R.id.addShiftSelectedDate);
 
-        mSelectedStartTime = findViewById(R.id.addShiftSelectedStartTime);
-        mSelectedEndTime = findViewById(R.id.addShiftSelectedEndTime);
+        mSelectedStartTimeTextView = findViewById(R.id.addShiftSelectedStartTime);
+        mSelectedEndTimeTextView = findViewById(R.id.addShiftSelectedEndTime);
         mStartTimeBtn = findViewById(R.id.addShiftStartTimeBtn);
         mEndTimeBtn = findViewById(R.id.addShiftEndTimeBtn);
 
@@ -76,26 +82,11 @@ public class AddShiftActivity extends AppCompatActivity {
         mAddShiftBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                SimpleDateFormat yyyyMMdd = new SimpleDateFormat("yyyyMMdd");
-                ContentResolver cr = getContentResolver();
-                ContentValues values = new ContentValues();
-
-                values.put(CalendarContract.Events.DTSTART, mCalendar.getTimeInMillis());
-                values.put(CalendarContract.Events.DTEND, mCalendar.getTimeInMillis());
-                values.put(CalendarContract.Events.TITLE, "idan test");
-                values.put(CalendarContract.Events.DESCRIPTION, "comment");
-
-                TimeZone timeZone = TimeZone.getDefault();
-                values.put(CalendarContract.Events.EVENT_TIMEZONE, timeZone.getID());
-
-                values.put(CalendarContract.Events.CALENDAR_ID, 1);
-
-//                values.put(CalendarContract.Events.DURATION, "+P1H");
-
-                values.put(CalendarContract.Events.HAS_ALARM, 1);
-
-// Insert event to calendar
-                Uri uri = cr.insert(CalendarContract.Events.CONTENT_URI, values);
+                Shift shift = new Shift();
+                shift.setShiftManager(UsersManager.getInstance().getCurrentUser());
+                shift.setStartTime(mSelectedStartTime);
+                shift.setEndTime(mSelectedEndTime);
+                ShiftsManager.getInstance().addShift(shift);
             }
         });
 
@@ -130,19 +121,18 @@ public class AddShiftActivity extends AppCompatActivity {
 //                Toast.makeText(MainActivity.this, text, Toast.LENGTH_SHORT).show();
             }
         });
-
     }
 
     private void updateSelectedDate() {
-        mSelectedDate.setText(mSdf.format(mCalendar.getTime()));
+        mSelectedDateTextVIew.setText(mSdf.format(mCalendar.getTime()));
     }
 
     private void updateSelectedTime(int hour, int minutes) {
         String selected = String.format("%s:%s", hour, minutes);
         if (mStartTimeSet) {
-            mSelectedStartTime.setText(selected);
+            mSelectedStartTimeTextView.setText(selected);
         } else {
-            mSelectedEndTime.setText(selected);
+            mSelectedEndTimeTextView.setText(selected);
         }
     }
 
@@ -168,5 +158,26 @@ public class AddShiftActivity extends AppCompatActivity {
             }
         }, mCalendar.get(Calendar.HOUR_OF_DAY), mCalendar.get(Calendar.MINUTE), true);
         tpd.show();
+    }
+
+    private void syncWithCalendar() {
+        SimpleDateFormat yyyyMMdd = new SimpleDateFormat("yyyyMMdd");
+        ContentResolver cr = getContentResolver();
+        ContentValues values = new ContentValues();
+
+        values.put(CalendarContract.Events.DTSTART, mCalendar.getTimeInMillis());
+        values.put(CalendarContract.Events.DTEND, mCalendar.getTimeInMillis());
+        values.put(CalendarContract.Events.TITLE, "idan test");
+        values.put(CalendarContract.Events.DESCRIPTION, "comment");
+
+        TimeZone timeZone = TimeZone.getDefault();
+        values.put(CalendarContract.Events.EVENT_TIMEZONE, timeZone.getID());
+
+        values.put(CalendarContract.Events.CALENDAR_ID, 1);
+
+//                values.put(CalendarContract.Events.DURATION, "+P1H");
+
+        values.put(CalendarContract.Events.HAS_ALARM, 1);
+        Uri uri = cr.insert(CalendarContract.Events.CONTENT_URI, values);
     }
 }

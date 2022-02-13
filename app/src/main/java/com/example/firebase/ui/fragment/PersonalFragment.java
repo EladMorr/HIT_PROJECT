@@ -10,6 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.firebase.R;
 
@@ -18,13 +19,7 @@ import java.util.TimerTask;
 
 public class PersonalFragment extends Fragment {
 
-    ImageButton circleClockBTN;
-    boolean timerStarted = false;
-    TextView mClock;
-    private long mStartTime;
-    private Timer mTimer;
-
-    int hours, minutes, seconds;
+    private RecyclerView mUpcomingShiftsRecyclerView;
 
     public PersonalFragment() {
     }
@@ -37,49 +32,8 @@ public class PersonalFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_personal_page, container, false);
 
 
-        circleClockBTN = v.findViewById(R.id.circleBTN);
-        mClock = v.findViewById(R.id.timerTXT);
-        circleClockBTN.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (timerStarted) {
-                    stopClock();
-                } else {
-                    startClock();
-                }
-            }
-        });
-
         return v;
     }
 
-    private void startClock() {
-        timerStarted = true;
-        mStartTime = System.currentTimeMillis();
-        mTimer = new Timer();
-        mTimer.scheduleAtFixedRate(new TimerTask() {
-            @Override
-            public void run() {
-                updateClock();
-            }
-        }, 0, 1000);
-    }
 
-    private void stopClock() {
-        timerStarted = false;
-        mTimer.cancel();
-    }
-
-    private void updateClock() {
-        getActivity().runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                long millis = System.currentTimeMillis() - mStartTime;
-                int seconds = (int) (millis / 1000);
-                int minutes = seconds / 60;
-                seconds = seconds % 60;
-                mClock.setText(String.format("%d:%02d", minutes, seconds));
-            }
-        });
-    }
 }

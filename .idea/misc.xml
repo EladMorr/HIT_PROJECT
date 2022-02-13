@@ -27,7 +27,7 @@
         <entry key="..\:/projects/HIT_PROJECT/app/src/main/res/drawable/ic_person.xml" value="0.158" />
         <entry key="..\:/projects/HIT_PROJECT/app/src/main/res/drawable/selected_btn_background.xml" value="0.139" />
         <entry key="..\:/projects/HIT_PROJECT/app/src/main/res/drawable/unselected_btn_background.xml" value="0.139" />
-        <entry key="..\:/projects/HIT_PROJECT/app/src/main/res/layout/activity_add_shift.xml" value="0.25" />
+        <entry key="..\:/projects/HIT_PROJECT/app/src/main/res/layout/activity_add_shift.xml" value="0.18" />
         <entry key="..\:/projects/HIT_PROJECT/app/src/main/res/layout/activity_home.xml" value="0.22826086956521738" />
         <entry key="..\:/projects/HIT_PROJECT/app/src/main/res/layout/activity_login.xml" value="0.25181159420289856" />
         <entry key="..\:/projects/HIT_PROJECT/app/src/main/res/layout/activity_main.xml" value="0.25" />
@@ -37,6 +37,8 @@
         <entry key="..\:/projects/HIT_PROJECT/app/src/main/res/layout/fragment_manager.xml" value="0.2609375" />
         <entry key="..\:/projects/HIT_PROJECT/app/src/main/res/layout/fragment_personal_page.xml" value="0.2441123188405797" />
         <entry key="..\:/projects/HIT_PROJECT/app/src/main/res/layout/fragment_settings.xml" value="0.21195652173913043" />
+        <entry key="..\:/projects/HIT_PROJECT/app/src/main/res/layout/view_all_shifts_view_holder_layout.xml" value="0.1767905711695376" />
+        <entry key="..\:/projects/HIT_PROJECT/app/src/main/res/layout/view_post_item_layout.xml" value="0.10029251984956122" />
       </map>
     </option>
   </component>
